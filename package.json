@@ -1,0 +1,25 @@
+{
+  "name": "page-object",
+  "version": "1.0.0",
+  "description": "Page Object patter in javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skinnyjames/page-object.git"
+  },
+  "keywords": [
+    "Page",
+    "Object",
+    "selenium",
+    "testing"
+  ],
+  "author": "Sean Gregory",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skinnyjames/page-object/issues"
+  },
+  "homepage": "https://github.com/skinnyjames/page-object#readme"
+}
