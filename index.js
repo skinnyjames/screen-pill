@@ -4,6 +4,8 @@ module.exports = function(driver) {
 
     const self = this
 
+    this.driver = driver
+
     this.url = function PageObject$url (url) {
       self.url = url
     }
@@ -16,9 +18,11 @@ module.exports = function(driver) {
       }
     }
 
-    // Text Fields
+    this.button = function PageObject$button (key, identifier) {
+      self[key] = driver.findElement(identifier)
+    }
     
-    this.div = function PageObject$textField (key, identifier) {
+    this.div = function PageObject$div (key, identifier) {
       self[key] = {
         get: function() {
           return this.element().getText()

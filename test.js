@@ -7,7 +7,19 @@ const PageObject = require('./index')(driver)
 function GoogleSearch() {
 
   this.url('http://www.google.com')
+
   this.textField('terms', {id: 'lst-ib'})
+  this.button('submit', {name: 'btnK'})
+
+  this.search = function(query) {
+    return this.terms.set(query)
+    .then(_ => {
+      this.driver.executeScript("document.getElementById('lst-ib').blur();")
+    })
+    .then(_ => {
+      this.submit.click()
+    })
+  }
 
   return this
 }
@@ -24,15 +36,20 @@ function GoogleSearchResults() {
 
 GoogleSearchResults.prototype = new PageObject()
 
-let search = new GoogleSearch()
+let searchPage = new GoogleSearch()
 let results = new GoogleSearchResults()
 
-search.visit()
+searchPage.visit()
+/*
 .then(_ => {
-  return search.terms.set('cats')
+  return searchPage.search('bottle')
+})
+*/
+.then(_ => {
+  return searchPage.terms.set('cats')
 })
 .then(_ => {
-  return search.terms.waitUntil(catDog, 10000, 'cat not dog')
+  return searchPage.terms.waitUntil(catDog, 10000, 'cat not dog')
 })
 .then(_ => {
   return results.stats.waitUntilPresent()
