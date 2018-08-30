@@ -24,7 +24,8 @@ function GoogleSearch() {
   return this
 }
 
-GoogleSearch.prototype = new PageObject()
+PageObject(GoogleSearch)
+
 
 // Result page
 function GoogleSearchResults() {
@@ -34,7 +35,7 @@ function GoogleSearchResults() {
   return this
 }
 
-GoogleSearchResults.prototype = new PageObject()
+PageObject(GoogleSearchResults)
 
 let searchPage = new GoogleSearch()
 let results = new GoogleSearchResults()

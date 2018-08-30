@@ -1,6 +1,8 @@
 module.exports = function(driver) {
 
-  return function() {
+  return function(PageClass) {
+
+    PageClass.prototype = this
 
     const self = this
 
