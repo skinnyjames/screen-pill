@@ -41,16 +41,20 @@ let searchPage = new GoogleSearch()
 let results = new GoogleSearchResults()
 
 searchPage.visit()
-/*
 .then(_ => {
-  return searchPage.search('bottle')
+  return searchPage.terms.waitUntilPresent()
 })
-*/
 .then(_ => {
   return searchPage.terms.set('cats')
 })
 .then(_ => {
   return searchPage.terms.waitUntil(catDog, 10000, 'cat not dog')
+})
+.then(_ => {
+  return searchPage.driver.executeScript("document.getElementById('lst-ib').blur();")
+})
+.then(_ => {
+  return searchPage.submit.click()
 })
 .then(_ => {
   return results.stats.waitUntilPresent()
