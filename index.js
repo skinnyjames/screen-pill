@@ -36,7 +36,13 @@ module.exports = function(driver) {
     this.div = function PageObject$div (key, identifier) {
 
       // more specific identifier
-      identifier['tagName'] = 'div'
+      if (identifier['css']) {
+        identifier['css'] = 'div' + identifier['css']
+      } else {
+        identifier['css'] = 'div'
+      }
+
+      console.log(identifier)
 
       self[key] = {
         get: function() {
@@ -50,6 +56,13 @@ module.exports = function(driver) {
     }
 
     this.textField = function PageObject$textField (key, identifier) {
+
+      // more specific identifier
+      if (identifier['css']) {
+        identifier['css'] = 'input[type=text]' + identifier['css']
+      } else {
+        identifier['css'] = 'input[type=text]'
+      }
 
       self[key] = {
         set: function(value) {

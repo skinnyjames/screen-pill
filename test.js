@@ -8,13 +8,13 @@ function GoogleSearch() {
 
   this.url('http://www.google.com')
 
-  this.textField('terms', {id: 'lst-ib'})
+  this.textField('terms', {name: 'q'})
   this.button('submit', {name: 'btnK'})
 
   this.search = function(query) {
     return this.terms.set(query)
     .then(_ => {
-      this.driver.executeScript("document.getElementById('lst-ib').blur();")
+      this.driver.executeScript("document.getElementById('viewport').click()")
     })
     .then(_ => {
       this.submit.click()
@@ -30,7 +30,7 @@ PageObject(GoogleSearch)
 // Result page
 function GoogleSearchResults() {
 
-  this.div('stats', {id: 'resultStats'})
+  this.div('stats', {css: '#resultStats', partialLinkText: 'About'})
 
   return this
 }
@@ -51,7 +51,7 @@ searchPage.visit()
   return searchPage.terms.waitUntil(catDog, 10000, 'cat not dog')
 })
 .then(_ => {
-  return searchPage.driver.executeScript("document.getElementById('lst-ib').blur();")
+  return searchPage.driver.executeScript("document.getElementById('viewport').click();")
 })
 .then(_ => {
   return searchPage.submit.click()
