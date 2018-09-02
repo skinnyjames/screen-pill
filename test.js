@@ -8,7 +8,7 @@ function GoogleSearch() {
 
   this.url('http://www.google.com')
 
-  this.textField('terms', {index: 0})
+  this.textField('terms', {index: 0, name: 'q'})
   this.submit('submit', {name: 'btnK', index: 0})
 
   this.search = function(query) {
