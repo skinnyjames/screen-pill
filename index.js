@@ -1,7 +1,7 @@
 const Elements = require('./lib/elements')
 const Promise = require('bluebird')
 
-module.exports = function(driver) {
+module.exports = function() {
 
   return function(PageClass) {
 
@@ -29,7 +29,9 @@ module.exports = function(driver) {
 
     const self = this
 
-    this.driver = driver
+    this.loadDriver = function PageObject$driver (driver) {
+      self.driver = driver
+    }
 
     this.url = function PageObject$url (url) {
       self.url = url
@@ -155,4 +157,4 @@ module.exports = function(driver) {
       Object.assign(self[key], Elements)
     }
   }
-}
+}()

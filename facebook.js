@@ -1,8 +1,9 @@
 const webdriver = require('selenium-webdriver')
 const driver = new webdriver.Builder().forBrowser('chrome').build()
-const PageObject = require('./index')(driver)
+const PageObject = require('./index')
 
-function FacebookHome() {
+function FacebookHome(driver) {
+  this.loadDriver(driver)
   this.url('http://www.facebook.com')
   this.selectList('birthdayMonth', {id: 'month'})
 
@@ -16,6 +17,6 @@ function FacebookHome() {
 
 PageObject(FacebookHome)
 
-home = new FacebookHome()
+home = new FacebookHome(driver)
 
 home.changeBirthday()

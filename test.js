@@ -1,12 +1,15 @@
 const webdriver = require('selenium-webdriver')
 const driver = new webdriver.Builder().forBrowser('chrome').build()
-const PageObject = require('./index')(driver)
+const PageObject = require('./index')
 
 
 // Google Search
-function GoogleSearch() {
+function GoogleSearch(driver) {
+
+  this.loadDriver(driver)
 
   this.url('http://www.google.com')
+
   this.textField('terms', {name: 'q'})
   this.submit('google')
   this.submit('feelingLucky', {index: 1})
@@ -26,7 +29,9 @@ PageObject(GoogleSearch)
 
 
 // Result page
-function GoogleSearchResults() {
+function GoogleSearchResults(driver) {
+
+  this.loadDriver(driver)
 
   this.div('stats', {css: '#resultStats', partialLinkText: 'About'})
 
@@ -35,8 +40,8 @@ function GoogleSearchResults() {
 
 PageObject(GoogleSearchResults)
 
-let searchPage = new GoogleSearch()
-let results = new GoogleSearchResults()
+let searchPage = new GoogleSearch(driver)
+let results = new GoogleSearchResults(driver)
 
 searchPage.visit()
 .then(_ => {
