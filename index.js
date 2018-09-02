@@ -4,12 +4,12 @@ module.exports = function(driver) {
 
   return function(PageClass) {
 
-    function Use(key, mixin) {
+    function include(key, mixin) {
       Object.assign(self[key], mixin)
     }
 
     function parseIdentifier(identifier, elementName, scope) {
-      if (identifier['css']) {
+      if (identifier['css'] && elementName != null) {
         identifier['css'] = elementName + identifier['css']
       } else {
         identifier['css'] = elementName
@@ -21,7 +21,6 @@ module.exports = function(driver) {
       } else {
         scope['index'] = 0
       }
-
       return identifier
     }
 
@@ -43,6 +42,12 @@ module.exports = function(driver) {
       }
     }
 
+    this.element = function PageObject$element (key, identifier={}) {
+      self[key] = {} 
+      indentifier = parseIdentifier(identifier, null, self[key])
+      Object.assign(self[key],  { driver, identifier })
+      Object.assign(self[key], Elements)
+    }
 
     this.div = function PageObject$div (key, identifier={}) {
       self[key] = {
@@ -53,12 +58,10 @@ module.exports = function(driver) {
 
       indentifier = parseIdentifier(identifier, 'div', self[key])
       Object.assign(self[key],  { driver, identifier })
-      Use(key, Elements)
+      Object.assign(self[key], Elements)
     }
 
     this.textField = function PageObject$textField (key, identifier={}) {
-
-
       self[key] = {
         set: function(value) {
           return this.element().then((element) => { return element.sendKeys(value) })
@@ -69,7 +72,7 @@ module.exports = function(driver) {
       }
       indentifier = parseIdentifier(identifier, 'input[type=text]', self[key])
       Object.assign(self[key], { driver, identifier })
-      Use(key, Elements)
+      Object.assign(self[key], Elements)
     }
 
     this.submit = function PageObject$submit (key, identifier={}) {
@@ -80,7 +83,7 @@ module.exports = function(driver) {
       }
       indentifier = parseIdentifier(identifier, 'input[type=submit]', self[key])
       Object.assign(self[key], { driver, identifier })
-      Use(key, Elements)
+      Object.assign(self[key], Elements)
     }
   }
 }
