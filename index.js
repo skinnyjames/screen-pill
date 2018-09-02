@@ -29,11 +29,11 @@ module.exports = function() {
 
     const self = this
 
-    this.loadDriver = function PageObject$driver (driver) {
+    this.setDriver = function PageObject$driver (driver) {
       self.driver = driver
     }
 
-    this.url = function PageObject$url (url) {
+    this.setUrl = function PageObject$url (url) {
       self.url = url
     }
 

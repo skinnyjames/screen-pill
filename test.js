@@ -6,9 +6,9 @@ const PageObject = require('./index')
 // Google Search
 function GoogleSearch(driver) {
 
-  this.loadDriver(driver)
+  this.setDriver(driver)
 
-  this.url('http://www.google.com')
+  this.setUrl('http://www.google.com')
 
   this.textField('terms', {name: 'q'})
   this.submit('google')
@@ -31,7 +31,7 @@ PageObject(GoogleSearch)
 // Result page
 function GoogleSearchResults(driver) {
 
-  this.loadDriver(driver)
+  this.setDriver(driver)
 
   this.div('stats', {css: '#resultStats', partialLinkText: 'About'})
 
