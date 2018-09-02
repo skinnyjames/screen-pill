@@ -1,6 +1,6 @@
 {
   "name": "screen-pill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Page Object pattern in javascript",
   "main": "index.js",
   "scripts": {
