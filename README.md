@@ -1,7 +1,10 @@
 # screenpill
 
 page object pattern implemented in javascript
+
 inpsired by cheezy's ruby [implementation](https://github.com/cheezy/page-object)
+
+check out the [cucumber demo](https://github.com/skinnyjames/cucumber-js)
 
 ## usage
 
