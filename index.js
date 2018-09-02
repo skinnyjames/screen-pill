@@ -1,4 +1,5 @@
 const Elements = require('./lib/elements')
+const Promise = require('bluebird')
 
 module.exports = function(driver) {
 
@@ -69,6 +70,71 @@ module.exports = function(driver) {
         get: function() {
           return this.element().then((element) => { return element.getAttribute('value') })
         },
+      }
+      indentifier = parseIdentifier(identifier, 'input[type=text]', self[key])
+      Object.assign(self[key], { driver, identifier })
+      Object.assign(self[key], Elements)
+    }
+
+    this.selectList = function PageObject$selectList (key, identifier={}) {
+      self[key] = {
+        get: function() {
+          let selected = Promise.filter(this.optionElements(), (element) => {
+            return element.isSelected()
+          })
+          return Promise.map(selected, (el) => {
+            return el.getText()
+          })
+        },
+        optionElements: function() {
+          return this.element()
+          .then((element) => { 
+            return element.findElements({css: 'option'})
+          })
+          .then((elements) => {
+            return Promise.all(elements)
+          })
+        },
+        options: function() {
+          return this.optionElements()
+          .then(options => { 
+            return Promise.map(options, (option) => {
+              return option.getText()
+            })
+          })
+        },
+        selectBy: function(type='visibleText', token) {
+          return this.optionElements()
+          .then((options) => {
+            switch(type) {
+              case 'index': 
+                return options[token].click()
+                break
+              case 'value': 
+                for (let i=0;i<options.length;i++) {
+                  options[i].getAttribute('value')
+                  .then((value) => {
+                    if (value == token) {
+                      return options[i].click()
+                    }
+                  })
+                }
+                break;
+              case 'visibleText':
+                for (let i=0;i<options.length;i++) {
+                  options[i].getText()
+                  .then((value) => {
+                    if (value == token) {
+                      return options[i].click()
+                    }
+                  })
+                }
+                break
+              default: 
+                return options[0].click()
+            }
+          })
+        }
       }
       indentifier = parseIdentifier(identifier, 'input[type=text]', self[key])
       Object.assign(self[key], { driver, identifier })
