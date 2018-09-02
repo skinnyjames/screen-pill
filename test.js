@@ -8,8 +8,8 @@ function GoogleSearch() {
 
   this.url('http://www.google.com')
 
-  this.textField('terms', {name: 'q'})
-  this.button('submit', {name: 'btnK'})
+  this.textField('terms', {index: 0})
+  this.submit('submit', {name: 'btnK', index: 0})
 
   this.search = function(query) {
     return this.terms.set(query)
@@ -42,7 +42,8 @@ let results = new GoogleSearchResults()
 
 searchPage.visit()
 .then(_ => {
-  return searchPage.terms.waitUntilPresent()
+  console.log(searchPage.terms)
+  return searchPage.terms.waitUntilPresent(5000, 'terms not present')
 })
 .then(_ => {
   return searchPage.terms.set('cats')
@@ -54,10 +55,13 @@ searchPage.visit()
   return searchPage.driver.executeScript("document.getElementById('viewport').click();")
 })
 .then(_ => {
+  return searchPage.submit.waitUntilPresent(5000, 'submit not visible')
+})
+.then(_ => {
   return searchPage.submit.click()
 })
 .then(_ => {
-  return results.stats.waitUntilPresent()
+  return results.stats.waitUntilPresent(5000, 'Stats not present')
 })
 .then(_ => {
   return results.stats.get()
@@ -75,3 +79,7 @@ function catDog (element) {
     return value == 'dog' 
   })
 }
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error(`Uncaught error in`, promise);
+});

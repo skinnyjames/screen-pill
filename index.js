@@ -4,10 +4,25 @@ module.exports = function(driver) {
 
   return function(PageClass) {
 
-    function Use(key, mixin, scope) {
-      for (var func in mixin) {
-        self[key][func] = mixin[func].bind(scope) 
+    function Use(key, mixin) {
+      Object.assign(self[key], mixin)
+    }
+
+    function parseIdentifier(identifier, elementName, scope) {
+      if (identifier['css']) {
+        identifier['css'] = elementName + identifier['css']
+      } else {
+        identifier['css'] = elementName
       }
+
+      if (identifier['index'] != null) {
+        scope['index'] = identifier['index']
+        delete identifier['index']
+      } else {
+        scope['index'] = 0
+      }
+
+      return identifier
     }
 
     PageClass.prototype = this
@@ -28,53 +43,44 @@ module.exports = function(driver) {
       }
     }
 
-    this.button = function PageObject$button (key, identifier) {
-      self[key] = driver.findElement(identifier)
-    }
-    
 
     this.div = function PageObject$div (key, identifier) {
-
-      // more specific identifier
-      if (identifier['css']) {
-        identifier['css'] = 'div' + identifier['css']
-      } else {
-        identifier['css'] = 'div'
-      }
-
-      console.log(identifier)
-
       self[key] = {
         get: function() {
-          return this.element().getText()
+          return this.element().then((element) => { return element.getText() })
         },
       }
 
-      Object.assign(this, { driver, identifier })
-      Use(key, Elements, this)
-
+      indentifier = parseIdentifier(identifier, 'div', self[key])
+      Object.assign(self[key],  { driver, identifier })
+      Use(key, Elements)
     }
 
     this.textField = function PageObject$textField (key, identifier) {
 
-      // more specific identifier
-      if (identifier['css']) {
-        identifier['css'] = 'input[type=text]' + identifier['css']
-      } else {
-        identifier['css'] = 'input[type=text]'
-      }
 
       self[key] = {
         set: function(value) {
-          return this.element().sendKeys(value)
+          return this.element().then((element) => { return element.sendKeys(value) })
         },
         get: function() {
-          return this.element().getAttribute('value')
+          return this.element().then((element) => { return element.getAttribute('value') })
         },
       }
+      indentifier = parseIdentifier(identifier, 'input[type=text]', self[key])
+      Object.assign(self[key], { driver, identifier })
+      Use(key, Elements)
+    }
 
-      Object.assign(this, { driver, identifier })
-      Use(key, Elements, this)
+    this.submit = function PageObject$submit (key, identifier) {
+      self[key] = {
+        click: function() {
+          return this.element().then((element) => { return element.click() })
+        }
+      }
+      indentifier = parseIdentifier(identifier, 'input[type=submit]', self[key])
+      Object.assign(self[key], { driver, identifier })
+      Use(key, Elements)
     }
   }
 }
