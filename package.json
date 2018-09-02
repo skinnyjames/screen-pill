@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skinnyjames/page-object.git"
+    "url": "git+https://github.com/skinnyjames/screen-pill.git"
   },
   "keywords": [
     "Page",
@@ -19,9 +19,9 @@
   "author": "Sean Gregory",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/skinnyjames/page-object/issues"
+    "url": "https://github.com/skinnyjames/screen-pill/issues"
   },
-  "homepage": "https://github.com/skinnyjames/page-object#readme",
+  "homepage": "https://github.com/skinnyjames/screen-pil#readme",
   "devDependencies": {
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
