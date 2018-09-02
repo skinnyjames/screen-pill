@@ -11,14 +11,12 @@ function GoogleSearch() {
   this.submit('google')
   this.submit('feelingLucky', {index: 1})
 
-  this.search = function(query) {
-    return this.terms.set(query)
-    .then(_ => {
-      this.driver.executeScript("document.getElementById('viewport').click()")
-    })
-    .then(_ => {
-      this.submit.click()
-    })
+  this.query = async function(query) {
+    await this.terms.waitUntilPresent()
+    await this.terms.set(query)
+    await this.driver.executeScript("document.getElementById('viewport').click()")
+    await this.google.waitUntilPresent()
+    return this.google.click()
   }
 
   return this
@@ -42,22 +40,7 @@ let results = new GoogleSearchResults()
 
 searchPage.visit()
 .then(_ => {
-  return searchPage.terms.waitUntilPresent(5000, 'terms not present')
-})
-.then(_ => {
-  return searchPage.terms.set('cats')
-})
-.then(_ => {
-  return searchPage.terms.waitUntil(catDog, 10000, 'cat not dog')
-})
-.then(_ => {
-  return searchPage.driver.executeScript("document.getElementById('viewport').click();")
-})
-.then(_ => {
-  return searchPage.google.waitUntilPresent(5000, 'submit not visible')
-})
-.then(_ => {
-  return searchPage.google.click()
+  return searchPage.query('cats')
 })
 .then(_ => {
   return results.stats.waitUntilPresent(5000, 'Stats not present')

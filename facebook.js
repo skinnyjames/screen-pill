@@ -5,17 +5,17 @@ const PageObject = require('./index')(driver)
 function FacebookHome() {
   this.url('http://www.facebook.com')
   this.selectList('birthdayMonth', {id: 'month'})
+
+  this.changeBirthday = async function() {
+    await this.visit()
+    let options = await this.birthdayMonth.options() 
+    return this.birthdayMonth.select(options[3])
+  }
+
 }
 
 PageObject(FacebookHome)
 
-home = new FacebookHome
+home = new FacebookHome()
 
-
-home.visit()
-.then(_ => {
-  return home.birthdayMonth.options()
-})
-.then(value => {
-  return home.birthdayMonth.selectBy('visibleText', 'Oct')
-})
+home.changeBirthday()

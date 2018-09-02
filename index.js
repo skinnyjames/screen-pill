@@ -103,6 +103,9 @@ module.exports = function(driver) {
             })
           })
         },
+        select: function(value) {
+          return this.selectBy('visibleText', value)
+        },
         selectBy: function(type='visibleText', token) {
           return this.optionElements()
           .then((options) => {
