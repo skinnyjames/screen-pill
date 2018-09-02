@@ -44,7 +44,7 @@ module.exports = function(driver) {
     }
 
 
-    this.div = function PageObject$div (key, identifier) {
+    this.div = function PageObject$div (key, identifier={}) {
       self[key] = {
         get: function() {
           return this.element().then((element) => { return element.getText() })
@@ -56,7 +56,7 @@ module.exports = function(driver) {
       Use(key, Elements)
     }
 
-    this.textField = function PageObject$textField (key, identifier) {
+    this.textField = function PageObject$textField (key, identifier={}) {
 
 
       self[key] = {
@@ -72,7 +72,7 @@ module.exports = function(driver) {
       Use(key, Elements)
     }
 
-    this.submit = function PageObject$submit (key, identifier) {
+    this.submit = function PageObject$submit (key, identifier={}) {
       self[key] = {
         click: function() {
           return this.element().then((element) => { return element.click() })

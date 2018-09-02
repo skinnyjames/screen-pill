@@ -7,9 +7,9 @@ const PageObject = require('./index')(driver)
 function GoogleSearch() {
 
   this.url('http://www.google.com')
-
-  this.textField('terms', {index: 0, name: 'q'})
-  this.submit('submit', {name: 'btnK', index: 0})
+  this.textField('terms', {name: 'q'})
+  this.submit('google')
+  this.submit('feelingLucky', {index: 1})
 
   this.search = function(query) {
     return this.terms.set(query)
@@ -42,7 +42,6 @@ let results = new GoogleSearchResults()
 
 searchPage.visit()
 .then(_ => {
-  console.log(searchPage.terms)
   return searchPage.terms.waitUntilPresent(5000, 'terms not present')
 })
 .then(_ => {
@@ -55,10 +54,10 @@ searchPage.visit()
   return searchPage.driver.executeScript("document.getElementById('viewport').click();")
 })
 .then(_ => {
-  return searchPage.submit.waitUntilPresent(5000, 'submit not visible')
+  return searchPage.google.waitUntilPresent(5000, 'submit not visible')
 })
 .then(_ => {
-  return searchPage.submit.click()
+  return searchPage.google.click()
 })
 .then(_ => {
   return results.stats.waitUntilPresent(5000, 'Stats not present')
@@ -80,6 +79,3 @@ function catDog (element) {
   })
 }
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error(`Uncaught error in`, promise);
-});
