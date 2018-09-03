@@ -1,4 +1,6 @@
-# screenpill
+[![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill)
+
+# screen-pill
 
 page object pattern implemented in javascript
 
