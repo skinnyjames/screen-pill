@@ -1,6 +1,15 @@
-language: node_js
-node_js: 
-  - "8.11.4"
+sudo: false
+
 addons: 
   chrome: stable
-script: xvfb-run npm test
+  apt: 
+    packages: 
+      - chromium-chromedriver
+
+language: node_js
+
+node_js: 
+  - "8.11.4"
+
+before_script: xvfb-run npm test
+
