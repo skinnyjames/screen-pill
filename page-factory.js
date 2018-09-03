@@ -3,6 +3,8 @@ module.exports = {
     let pc = new PageClass(this.driver)
     if (cb && typeof cb == 'function') {
       return cb(pc)
+    } else {
+      return pc
     }
   },
   visit: async function(PageClass, cb) {
@@ -10,6 +12,8 @@ module.exports = {
     await pc.visit()
     if (cb && typeof cb == 'function') {
       return cb(pc)
+    } else {
+      return pc
     }
   }
 }
