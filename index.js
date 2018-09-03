@@ -45,20 +45,20 @@ module.exports = function() {
       }
     }
 
-    this.element = function PageObject$element (key, identifier={}) {
+    this.element = function PageObject$element (key, elementName, identifier={}) {
       self[key] = {} 
-      indentifier = parseIdentifier(identifier, null, self[key])
+      indentifier = parseIdentifier(identifier, elementName, self[key])
       Object.assign(self[key],  { driver, identifier })
       Object.assign(self[key], Elements)
     }
 
     this.div = function PageObject$div (key, identifier={}) {
       self[key] = {
-        get: function() {
-          return this.element().then((element) => { return element.getText() })
+        get: async function() {
+          let element = await this.element()
+          return element.getText()
         },
       }
-
       indentifier = parseIdentifier(identifier, 'div', self[key])
       Object.assign(self[key],  { driver, identifier })
       Object.assign(self[key], Elements)
@@ -66,11 +66,13 @@ module.exports = function() {
 
     this.textField = function PageObject$textField (key, identifier={}) {
       self[key] = {
-        set: function(value) {
-          return this.element().then((element) => { return element.sendKeys(value) })
+        set: async function(value) {
+          let element = await this.element()
+          return element.sendKeys(value)
         },
-        get: function() {
-          return this.element().then((element) => { return element.getAttribute('value') })
+        get: async function() {
+          let element = await this.element()
+          return element.getAttribute('value')
         },
       }
       indentifier = parseIdentifier(identifier, 'input[type=text]', self[key])
@@ -88,57 +90,44 @@ module.exports = function() {
             return el.getText()
           })
         },
-        optionElements: function() {
-          return this.element()
-          .then((element) => { 
-            return element.findElements({css: 'option'})
-          })
-          .then((elements) => {
-            return Promise.all(elements)
-          })
+        optionElements: async function() {
+          let select = await this.element()
+          return select.findElements({css: 'option'})
         },
-        options: function() {
-          return this.optionElements()
-          .then(options => { 
-            return Promise.map(options, (option) => {
-              return option.getText()
-            })
+        options: async function() {
+          let options = await this.optionElements()
+          return Promise.map(options, (option) => {
+            return option.getText()
           })
         },
         select: function(value) {
           return this.selectBy('visibleText', value)
         },
-        selectBy: function(type='visibleText', token) {
-          return this.optionElements()
-          .then((options) => {
-            switch(type) {
-              case 'index': 
-                return options[token].click()
-                break
-              case 'value': 
-                for (let i=0;i<options.length;i++) {
-                  options[i].getAttribute('value')
-                  .then((value) => {
-                    if (value == token) {
-                      return options[i].click()
-                    }
-                  })
+        selectBy: async function(type='visibleText', token) {
+          let options = await this.optionElements()
+          switch(type) {
+            case 'index':
+              return options[token].click()
+              break
+            case 'value':
+              for (let i=0;i<options.length;i++) {
+                let value = await options[i].getAttribute('value')
+                if (value == token) {
+                  return options[i].click()
                 }
-                break;
-              case 'visibleText':
-                for (let i=0;i<options.length;i++) {
-                  options[i].getText()
-                  .then((value) => {
-                    if (value == token) {
-                      return options[i].click()
-                    }
-                  })
+              }
+              break
+            case 'visibleText': 
+              for (let i=0;i<options.length;i++) {
+                let text = await options[i].getText()
+                if (text == token) {
+                  return options[i].click()
                 }
-                break
-              default: 
-                return options[0].click()
-            }
-          })
+              }
+              break
+            default:
+              return options[0].click()
+          }
         }
       }
       indentifier = parseIdentifier(identifier, 'input[type=text]', self[key])
@@ -148,8 +137,9 @@ module.exports = function() {
 
     this.submit = function PageObject$submit (key, identifier={}) {
       self[key] = {
-        click: function() {
-          return this.element().then((element) => { return element.click() })
+        click: async function() {
+          let element = await this.element()
+          return element.click()
         }
       }
       indentifier = parseIdentifier(identifier, 'input[type=submit]', self[key])

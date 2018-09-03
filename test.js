@@ -11,14 +11,13 @@ function GoogleSearch(driver) {
   this.setUrl('http://www.google.com')
 
   this.textField('terms', {name: 'q'})
-  this.submit('google')
+  this.submit('google', {name: 'btnK'})
   this.submit('feelingLucky', {index: 1})
 
   this.query = async function(query) {
-    await this.terms.waitUntilPresent()
+    await this.terms.waitUntilPresent(5000, 'Terms not present')
     await this.terms.set(query)
-    await this.driver.executeScript("document.getElementById('viewport').click()")
-    await this.google.waitUntilPresent()
+    await this.google.waitUntilPresent(5000, 'submit not present')
     return this.google.click()
   }
 
