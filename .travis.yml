@@ -11,5 +11,9 @@ language: node_js
 node_js: 
   - "8.11.4"
 
-before_script: xvfb-run npm test
+before_script: 
+  - ln --symbolic /usr/lib/chromium-browser/chromedriver "${HOME}/bin/chromedriver"
+
+script: 
+  - xvfb-run npm test
 
