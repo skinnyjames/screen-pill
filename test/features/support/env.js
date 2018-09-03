@@ -16,7 +16,9 @@ var g
 BeforeAll(function(cb) {
   g = glance({ dir: 'test/html'})
   g.start()
-  cb()
+  setTimeout(function() {
+    cb()
+  }, 5000)
 })
 
 AfterAll(function() {
