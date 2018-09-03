@@ -1,7 +1,15 @@
 const { setWorldConstructor, AfterAll, BeforeAll } = require('cucumber')
 const webdriver = require('selenium-webdriver')
-const driver = new webdriver.Builder().forBrowser('chrome').build()
+
+const chromeCapabilities = webdriver.Capabilities.chrome()
+const chromeOptions = {
+  'args': ['--no-sandbox']
+}
+chromeCapabilities.set('chromeOptions', chromeOptions)
+
+const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chromeCapabilities).build()
 const PageFactory = require('./../../../page-factory')
+
 var glance = require('glance')
 var g
 
