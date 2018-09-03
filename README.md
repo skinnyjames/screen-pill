@@ -29,7 +29,6 @@ function GoogleSearch(driver) {
   this.query = async function(query) {
     await this.terms.waitUntilPresent()
     await this.terms.set(query)
-    await this.driver.executeScript("document.getElementById('viewport').click()")
     await this.google.waitUntilPresent()
     return this.google.click()
   }
