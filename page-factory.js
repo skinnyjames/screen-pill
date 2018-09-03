@@ -7,7 +7,9 @@ module.exports = function(PageClass) {
     visit: async function(PageClass, cb) {
       let pc = new PageClass(this.driver)
       await pc.visit()
-      return cb(pc)
+      if (cb && typeof cb == 'function') {
+        return cb(pc)
+      }
     }
   }
 }
