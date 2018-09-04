@@ -24,12 +24,15 @@
   },
   "homepage": "https://github.com/skinnyjames/screen-pil#readme",
   "devDependencies": {
+    "@types/node": "^10.9.4",
+    "@types/selenium-webdriver": "^3.0.10",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "cucumber": "^4.2.1",
-    "mime": "1.4.1",
     "glance": "^3.0.5",
-    "selenium-webdriver": "^4.0.0-alpha.1"
+    "mime": "1.4.1",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "typescript": "^3.0.3"
   },
   "dependencies": {
     "bluebird": "^3.5.1"
