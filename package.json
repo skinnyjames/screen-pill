@@ -4,6 +4,7 @@
   "description": "Page Object pattern in javascript",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "cucumber-js test/features",
     "start": "glance -d test/html"
   },

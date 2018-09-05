@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "module": "system",
+    "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outFile": "./index.js",
-    "sourceMap": true
+    "lib": ["ES2015"],
+    "outDir": "./dist"
   },
   "include": [
     "src/**/*"

@@ -8,7 +8,10 @@ const chromeOptions = {
 chromeCapabilities.set('chromeOptions', chromeOptions)
 
 const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chromeCapabilities).build()
-const PageFactory = require('./../../../page-factory')
+
+const PillFactory = require('./../../../dist/screen-pill').PillFactory
+
+//const PageFactory = require('./../../../page-factory')
 
 var glance = require('glance')
 var g
@@ -27,11 +30,12 @@ AfterAll(function() {
 })
 
 
-class CustomWorld {
-  constructor() {
-    this.driver = driver
-    Object.assign(this, PageFactory)
-  }
+function CustomWorld() {
+  this.driver = driver
 }
 
-setWorldConstructor(CustomWorld)
+let World = PillFactory(CustomWorld)
+
+console.log(World)
+
+setWorldConstructor(World)
