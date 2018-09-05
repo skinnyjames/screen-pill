@@ -9,7 +9,7 @@ chromeCapabilities.set('chromeOptions', chromeOptions)
 
 const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chromeCapabilities).build()
 
-const PillFactory = require('./../../../dist/screen-pill').PillFactory
+const PillFactory = require('./../../../dist/pill-factory')
 
 //const PageFactory = require('./../../../page-factory')
 
@@ -35,7 +35,5 @@ function CustomWorld() {
 }
 
 let World = PillFactory(CustomWorld)
-
-console.log(World)
 
 setWorldConstructor(World)
