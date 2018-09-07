@@ -47,61 +47,253 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-Promise = require('bluebird');
-function ScreenPill(Base) {
+var Bluebird = require("bluebird");
+var Element = require('./element');
+module.exports = function ScreenPill(Base) {
     return (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        return class_1;
-    }(Base));
-}
-exports.ScreenPill = ScreenPill;
-function PillFactory(Base) {
-    return (function (_super) {
-        __extends(class_2, _super);
-        function class_2() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var _this = _super.call(this) || this;
-            _this.driver = _this.driver;
-            return _this;
-        }
-        class_2.prototype.on = function (PageClass, callback) {
-            var screenPill = new PageClass(this.driver);
-            if (callback && typeof callback == 'function') {
-                return callback(screenPill);
+        class_1.prototype.setDriver = function (driver) {
+            this.driver = driver;
+        };
+        class_1.prototype.directUrl = function (url) {
+            this.url = url;
+        };
+        class_1.prototype.visit = function (url) {
+            if (url) {
+                return this.driver.get(url);
             }
             else {
-                return screenPill;
+                return this.driver.get(this.url);
             }
         };
-        class_2.prototype.visit = function (PageClass, callback) {
-            return __awaiter(this, void 0, void 0, function () {
-                var screenPill;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            screenPill = new PageClass(this.driver);
-                            return [4, screenPill.visit()];
-                        case 1:
-                            _a.sent();
-                            if (callback && typeof callback == 'function') {
-                                return [2, callback(screenPill)];
-                            }
-                            else {
-                                return [2, screenPill];
-                            }
-                            return [2];
-                    }
-                });
-            });
+        class_1.prototype.element = function (key, elementName, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement(elementName, locator);
+            this.standardMethods(element);
+            this[key] = element;
         };
-        return class_2;
+        class_1.prototype.div = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('div', locator);
+            element = this.standardMethods(element);
+            element.get = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.getText()];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
+        class_1.prototype.textField = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('div', locator);
+            element = this.standardMethods(element);
+            element.get = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.getAttribute('value')];
+                        }
+                    });
+                });
+            };
+            element.set = function (value) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.sendKeys(value)];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
+        class_1.prototype.submit = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('div', locator);
+            element = this.standardMethods(element);
+            element.click = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.click()];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
+        class_1.prototype.selectList = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('div', locator);
+            element = this.standardMethods(element);
+            element.optionElements = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.findElements({ css: 'option' })];
+                        }
+                    });
+                });
+            };
+            element.options = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var options;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.optionElements()];
+                            case 1:
+                                options = _a.sent();
+                                return [2, Bluebird.map(options, function (option) {
+                                        return option.getText();
+                                    })];
+                        }
+                    });
+                });
+            };
+            element.getSelected = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var options, selected;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.optionElements()];
+                            case 1:
+                                options = _a.sent();
+                                selected = Bluebird.filter(options, function (option) {
+                                    return option.isSelected();
+                                });
+                                return [2, Bluebird.map(selected, function (el) {
+                                        return el.getText();
+                                    })];
+                        }
+                    });
+                });
+            };
+            element.get = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var selected;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.getSelected()];
+                            case 1:
+                                selected = _a.sent();
+                                return [2, selected[0]];
+                        }
+                    });
+                });
+            };
+            element.select = function (value) {
+                return __awaiter(this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        return [2, this.selectBy('text', value)];
+                    });
+                });
+            };
+            element.selectBy = function (type, token) {
+                if (type === void 0) { type = 'index'; }
+                return __awaiter(this, void 0, void 0, function () {
+                    var options, _loop_1, i, state_1, _loop_2, i, state_2;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.optionElements()];
+                            case 1:
+                                options = _a.sent();
+                                switch (type) {
+                                    case 'index':
+                                        return [2, options[token].click()];
+                                        break;
+                                    case 'value':
+                                        _loop_1 = function (i) {
+                                            return { value: options[i].getAttribute('value')
+                                                    .then(function (value) {
+                                                    if (value == token) {
+                                                        return options[i].click();
+                                                    }
+                                                }) };
+                                        };
+                                        for (i = 0; i < options.length; i++) {
+                                            state_1 = _loop_1(i);
+                                            if (typeof state_1 === "object")
+                                                return [2, state_1.value];
+                                        }
+                                        break;
+                                    default:
+                                        _loop_2 = function (i) {
+                                            return { value: options[i].getText()
+                                                    .then(function (text) {
+                                                    if (text == token) {
+                                                        return options[i].click();
+                                                    }
+                                                }) };
+                                        };
+                                        for (i = 0; i < options.length; i++) {
+                                            state_2 = _loop_2(i);
+                                            if (typeof state_2 === "object")
+                                                return [2, state_2.value];
+                                        }
+                                }
+                                return [2];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
+        class_1.prototype.standardMethods = function (element) {
+            return Object.assign(element, Element);
+        };
+        class_1.prototype.initializeElement = function (elementName, locator) {
+            var parsedLocator = this.parseLocator(elementName, locator);
+            var element = {
+                driver: this.driver,
+                locator: parsedLocator.locator,
+                index: parsedLocator.index
+            };
+            return element;
+        };
+        class_1.prototype.parseLocator = function (elementName, locator) {
+            var index;
+            if (locator.css) {
+                locator.css = elementName + locator.css;
+            }
+            else {
+                locator.css = elementName;
+            }
+            if (locator.index != null) {
+                index = locator.index;
+                delete locator.index;
+            }
+            else {
+                index = 0;
+            }
+            return { locator: locator, index: index };
+        };
+        return class_1;
     }(Base));
-}
-exports.PillFactory = PillFactory;
+};

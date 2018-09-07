@@ -1,57 +1,218 @@
-
-Promise = require('bluebird')
+import * as Bluebird from 'bluebird'
+const Element = require('./element')
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-interface PillFactory {
+interface ScreenPill {
+  [index: string]: Function | object,
+
   driver: object,
-  on: Function,
-  visit: Function
+  directUrl: Function,
+  visit: Function,
+
+  element: Function,
+  div: Function,
+  textField: Function,
+  selectList: Function,
+  submit: Function
 }
 
-function ScreenPill<TBase extends Constructor>(Base: TBase) {
-  return class extends Base {
-  }
+
+interface BasicLocator {
+  index?: number,
+  css?: string
 }
 
-function PillFactory<TBase extends Constructor>(Base: TBase) {
+interface ParsedLocator {
+  locator: object,
+  index: number
+}
 
-  return class extends Base implements PillFactory {
+export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
+  
+  return class extends Base implements ScreenPill{
 
-    constructor(...args: any[]) {
-      super()
+    [key: string]: Function | any
+
+    public url:string
+    driver:any 
+
+    setDriver(driver: any) {
+      this.driver = driver
+    }
+  
+    directUrl(url: string) {
+      this.url = url
     }
 
-    driver:any = this.driver
-
-    on(PageClass: any, callback?: Function) {
-      
-      let screenPill = new PageClass(this.driver)
-
-      if (callback && typeof callback == 'function') {
-        return callback(screenPill)
+    visit(url: string | null) {
+      if (url) {
+        return this.driver.get(url)
       } else {
-        return screenPill
+        return this.driver.get(this.url)
       }
     }
 
-    async visit(PageClass: any, callback?: Function) {
+    element(key:string, elementName:string, locator:BasicLocator = {}) {
 
-      let screenPill = new PageClass(this.driver)
-      await screenPill.visit()
+      let element = this.initializeElement(elementName, locator)
+      this.standardMethods(element)
+      this[key] = element
+    }
 
+    div(key:string, locator:BasicLocator = {}) {
 
-      if (callback && typeof callback == 'function') {
-        return callback(screenPill)
-      } else {
-        return screenPill
+      let element:any = this.initializeElement('div', locator)
+      element = this.standardMethods(element)
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getText()
       }
+
+      this[key] = element
+    }
+
+    textField(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('div', locator)
+      element = this.standardMethods(element)
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getAttribute('value')
+      }
+
+      element.set = async function(value:any) {
+        let el = await this.element()
+        return el.sendKeys(value)
+      }
+
+      this[key] = element
+    }
+
+    submit(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('div', locator)
+      element = this.standardMethods(element)
+
+      element.click = async function() {
+        let el = await this.element()
+        return el.click()
+      }
+
+      this[key] = element
+    }
+
+    selectList(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('div', locator)
+      element = this.standardMethods(element)
+
+      element.optionElements = async function() {
+        let el = await this.element()
+        return el.findElements({css: 'option'})
+      }
+
+      element.options = async function() {
+        let options = await this.optionElements()
+        return Bluebird.map(options, (option:any) => {
+          return option.getText()
+        })
+      }
+
+      element.getSelected = async function() {
+        let options = await this.optionElements()
+        let selected = Bluebird.filter(options, (option:any) => {
+          return option.isSelected()
+        })
+        return Bluebird.map(selected, (el:any) => {
+          return el.getText()
+        })
+      }
+
+      element.get = async function() {
+        let selected = await this.getSelected()
+        return selected[0]
+      }
+
+      element.select = async function(value:any) {
+        return this.selectBy('text', value)
+      }
+
+      element.selectBy = async function(type = 'index', token:string | number) {
+        let options = await this.optionElements()
+
+        switch(type) {
+          case 'index': 
+            return options[token].click()
+            break
+          case 'value': 
+            for (let i=0;i<options.length;i++) {
+              return options[i].getAttribute('value')
+                .then((value:string) => {
+                  if (value == token) {
+                    return options[i].click()
+                  }
+                })
+            }
+            break
+          default: 
+            for (let i=0;i<options.length;i++) {
+              return options[i].getText()
+                .then((text:string) => {
+                  if (text == token) {
+                    return options[i].click()
+                  }
+                })
+            }
+        }
+      }
+
+      this[key] = element
+    }
+
+    private standardMethods(element:object) {
+      return Object.assign(element, Element)
+    }
+
+    private initializeElement(elementName:string, locator:BasicLocator) {
+
+      let parsedLocator:ParsedLocator = this.parseLocator(elementName, locator)
+
+      let element = { 
+        driver: this.driver, 
+        locator: parsedLocator.locator,
+        index: parsedLocator.index
+      }
+
+      return element
+
+    }
+
+    private parseLocator(elementName:string, locator:BasicLocator) {
+
+      let index:number
+
+      // specific css selector
+      if (locator.css) {
+        locator.css = elementName + locator.css
+      } else {
+        locator.css = elementName
+      }
+
+      // parse out index
+      if (locator.index != null) {
+        index = locator.index
+        delete locator.index
+      } else {
+        index = 0
+      }
+
+      return { locator: locator, index: index }
     }
 
   }
 }
 
-export {
-  ScreenPill,
-  PillFactory
-};
+
