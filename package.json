@@ -2,7 +2,7 @@
   "name": "screen-pill",
   "version": "1.0.5",
   "description": "Page Object pattern in javascript",
-  "main": "index.js",
+  "main": "dist/screen-pill.js",
   "scripts": {
     "build": "tsc",
     "test": "cucumber-js test/features",
