@@ -62,16 +62,32 @@ async function search() {
 
 currently supported elements are:
 
-* element
-* div
-* textField
-* submit
-* selectList
+**generic element**
+
+* ~~element~~ 
+
+**form elements** 
+
+* ~~text field~~
+* ~~password field~~
+* ~~select~~
+* ~~radio~~
+* ~~label~~
+* ~~checkbox~~
+* ~~submit~~
+*  ~~textarea~~
+* ~~button~~
+* ~~file~~
+
+**block and inline elements**
+
+* ~~div~~
 
 All elements come with the following methods
 
 * `waitUntil(callback(element), timeout, message)`
 * `waitUntilPresent(timeout, message)`
+* `allElements() // returns promise of selenium elements`
 * `element() //returns promise with selenium element`
 
 ## under active development (contributions welcome)
