@@ -69,6 +69,19 @@ module.exports = function ScreenPill(Base) {
                 return this.driver.get(this.url);
             }
         };
+        class_1.prototype.text = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var el;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, this.driver.findElement({ css: 'html' })];
+                        case 1:
+                            el = _a.sent();
+                            return [2, el.getText()];
+                    }
+                });
+            });
+        };
         class_1.prototype.element = function (key, elementName, locator) {
             if (locator === void 0) { locator = {}; }
             var element = this.initializeElement(elementName, locator);

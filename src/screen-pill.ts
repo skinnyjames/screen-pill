@@ -52,6 +52,11 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       }
     }
 
+    async text() {
+      let el = await this.driver.findElement({css: 'html'})
+      return el.getText()
+    }
+
     element(key:string, elementName:string, locator:BasicLocator = {}) {
 
       let element = this.initializeElement(elementName, locator)
