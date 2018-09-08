@@ -55,3 +55,11 @@ Then(/I can fill in the password field/, async function() {
     expect(password).to.eql('password')
   })
 })
+
+Then(/I can fill in the textarea field/, async function() {
+  return this.on(IndexPage, async (page) => {
+    await page.description.set('this is a description')
+    let description = await page.description.get()
+    expect(description).to.eql('this is a description')
+  })
+})

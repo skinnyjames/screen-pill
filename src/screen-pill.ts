@@ -113,6 +113,25 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
     }
 
 
+    textarea(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('textarea', locator)
+      element = this.standardMethods(element)
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getAttribute('value')
+      }
+
+      element.set = async function(value:any) {
+        let el = await this.element()
+        await el.click()
+        await el.clear()
+        return el.sendKeys(value)
+      }
+
+      this[key] = element
+    }
 
 
     submit(key:string, locator:BasicLocator = {}) {
