@@ -8,6 +8,10 @@ inpsired by cheezy's ruby [implementation](https://github.com/cheezy/page-object
 
 check out the [cucumber demo](https://github.com/skinnyjames/cucumber-js)
 
+## install
+
+`npm install screen-pill`
+
 ## usage
 
 declare a function to encapsulate a web page
