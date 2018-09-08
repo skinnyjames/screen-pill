@@ -5,7 +5,7 @@
   "main": "dist/screen-pill.js",
   "scripts": {
     "build": "tsc",
-    "test": "cucumber-js test/features",
+    "test": "npm run build && cucumber-js test/features",
     "start": "glance -d test/html"
   },
   "repository": {
