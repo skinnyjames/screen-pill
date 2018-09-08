@@ -61,14 +61,19 @@ module.exports = {
             });
         });
     },
-    waitUntil: function (cb, timeout, message) {
-        if (timeout === void 0) { timeout = 5000; }
-        if (message === void 0) { message = 'wait condition not met'; }
+    waitUntil: function (cb, opts) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var driver, element, condition;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!opts.timeout) {
+                            opts.timeout = 5000;
+                        }
+                        if (!opts.message) {
+                            opts.message = 'wait condition timed out after ' + opts.timeout + ' millseconds';
+                        }
                         driver = this.driver;
                         return [4, this.element()];
                     case 1:
@@ -76,16 +81,21 @@ module.exports = {
                         condition = function () {
                             return cb(element);
                         };
-                        return [2, driver.wait(condition, timeout, message)];
+                        return [2, driver.wait(condition, opts.timeout, opts.message)];
                 }
             });
         });
     },
-    waitUntilPresent: function (timeout, message) {
+    waitUntilPresent: function (opts) {
         var _this = this;
-        if (timeout === void 0) { timeout = 5000; }
-        if (message === void 0) { message = 'element not present'; }
+        if (opts === void 0) { opts = {}; }
         var driver = this.driver;
+        if (!opts.timeout) {
+            opts.timeout = 5000;
+        }
+        if (!opts.message) {
+            opts.message = 'element ' + JSON.stringify(this.locator) + ' at index ' + this.index + ' not present after ' + opts.timeout + ' millseconds';
+        }
         return this.driver.wait(function () {
             var locator = _this.locator;
             var index = _this.index;
@@ -116,6 +126,6 @@ module.exports = {
                     });
                 });
             }
-        }, timeout, message);
+        }, opts.timeout, opts.message);
     }
 };

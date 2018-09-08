@@ -1,3 +1,8 @@
+interface Options {
+  timeout?: number,
+  message?: string
+}
+
 export = {
   element: async function() { 
     let index = this.index
@@ -13,17 +18,32 @@ export = {
     return this.driver.findElements(this.locator)
   },
 
-  waitUntil: async function(cb:Function, timeout=5000, message='wait condition not met') {
+  waitUntil: async function(cb:Function, opts:Options = {}) {
+
+    if (!opts.timeout) {
+      opts.timeout = 5000
+    }
+    if (!opts.message) {
+      opts.message = 'wait condition timed out after ' + opts.timeout + ' millseconds'
+    }
+
     let driver = this.driver
     let element = await this.element()
     let condition = function() {
       return cb(element)
     }
-    return driver.wait(condition, timeout, message)
+    return driver.wait(condition, opts.timeout, opts.message)
   },
 
-  waitUntilPresent: function(timeout=5000, message='element not present') {
+  waitUntilPresent: function(opts:Options = {}) {
     let driver = this.driver
+
+    if (!opts.timeout) {
+      opts.timeout = 5000
+    }
+    if (!opts.message) {
+      opts.message = 'element ' + JSON.stringify(this.locator) + ' at index ' + this.index + ' not present after ' + opts.timeout + ' millseconds'
+    }
 
     return this.driver.wait(() => {
 
@@ -45,6 +65,6 @@ export = {
       async function error(err:any) {
         return Promise.resolve(false)
       }
-    }, timeout, message)
+    }, opts.timeout, opts.message)
   }
 }

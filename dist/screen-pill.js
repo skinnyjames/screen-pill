@@ -107,6 +107,25 @@ module.exports = function ScreenPill(Base) {
             };
             this[key] = element;
         };
+        class_1.prototype.image = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('img', locator);
+            element = this.standardMethods(element);
+            element.get = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.getAttribute('src')];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
         class_1.prototype.textField = function (key, locator) {
             if (locator === void 0) { locator = {}; }
             var element = this.initializeElement('input[type=text]', locator);
@@ -512,7 +531,7 @@ module.exports = function ScreenPill(Base) {
         };
         return class_1;
     }(Base));
-    var accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p', 'td', 'label'];
+    var accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p', 'label', 'table', 'tr', 'td'];
     var _loop_1 = function (i) {
         Sp.prototype[accessors[i]] = function (key, locator) {
             if (locator === void 0) { locator = {}; }
