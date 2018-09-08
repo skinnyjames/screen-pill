@@ -50,7 +50,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var Bluebird = require("bluebird");
 var Element = require('./element');
 module.exports = function ScreenPill(Base) {
-    return (function (_super) {
+    var Sp = (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -73,25 +73,6 @@ module.exports = function ScreenPill(Base) {
             if (locator === void 0) { locator = {}; }
             var element = this.initializeElement(elementName, locator);
             this.standardMethods(element);
-            this[key] = element;
-        };
-        class_1.prototype.div = function (key, locator) {
-            if (locator === void 0) { locator = {}; }
-            var element = this.initializeElement('div', locator);
-            element = this.standardMethods(element);
-            element.get = function () {
-                return __awaiter(this, void 0, void 0, function () {
-                    var el;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4, this.element()];
-                            case 1:
-                                el = _a.sent();
-                                return [2, el.getText()];
-                        }
-                    });
-                });
-            };
             this[key] = element;
         };
         class_1.prototype.label = function (key, locator) {
@@ -349,7 +330,7 @@ module.exports = function ScreenPill(Base) {
         };
         class_1.prototype.selectList = function (key, locator) {
             if (locator === void 0) { locator = {}; }
-            var element = this.initializeElement('div', locator);
+            var element = this.initializeElement('select', locator);
             element = this.standardMethods(element);
             element.optionElements = function () {
                 return __awaiter(this, void 0, void 0, function () {
@@ -422,7 +403,7 @@ module.exports = function ScreenPill(Base) {
             element.selectBy = function (type, token) {
                 if (type === void 0) { type = 'index'; }
                 return __awaiter(this, void 0, void 0, function () {
-                    var options, _loop_1, i, _loop_2, i;
+                    var options, _loop_2, i, _loop_3, i;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4, this.optionElements()];
@@ -433,7 +414,7 @@ module.exports = function ScreenPill(Base) {
                                         return [2, options[token].click()];
                                         break;
                                     case 'value':
-                                        _loop_1 = function (i) {
+                                        _loop_2 = function (i) {
                                             options[i].getAttribute('value')
                                                 .then(function (value) {
                                                 if (value == token) {
@@ -442,11 +423,11 @@ module.exports = function ScreenPill(Base) {
                                             });
                                         };
                                         for (i = 0; i < options.length; i++) {
-                                            _loop_1(i);
+                                            _loop_2(i);
                                         }
                                         break;
                                     default:
-                                        _loop_2 = function (i) {
+                                        _loop_3 = function (i) {
                                             options[i].getText()
                                                 .then(function (text) {
                                                 if (text == token) {
@@ -455,7 +436,7 @@ module.exports = function ScreenPill(Base) {
                                             });
                                         };
                                         for (i = 0; i < options.length; i++) {
-                                            _loop_2(i);
+                                            _loop_3(i);
                                         }
                                 }
                                 return [2];
@@ -531,4 +512,43 @@ module.exports = function ScreenPill(Base) {
         };
         return class_1;
     }(Base));
+    var accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p'];
+    var _loop_1 = function (i) {
+        Sp.prototype[accessors[i]] = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement(accessors[i], locator);
+            this.standardMethods(element);
+            element.get = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.getText()];
+                        }
+                    });
+                });
+            };
+            element.click = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.click()];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
+    };
+    for (var i = 0; i < accessors.length; i++) {
+        _loop_1(i);
+    }
+    return Sp;
 };

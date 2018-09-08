@@ -10,7 +10,6 @@ function GoogleSearch(driver) {
   this.div('links', {id: 'gb'})
 
   this.pvisit = async function() {
-
     await this.visit()
     let data = await this.links.get()
     console.log(data)

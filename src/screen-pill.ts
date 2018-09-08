@@ -11,7 +11,6 @@ interface ScreenPill {
   visit: Function,
 
   element: Function,
-  div: Function,
   textField: Function,
   selectList: Function,
   submit: Function
@@ -30,7 +29,7 @@ interface ParsedLocator {
 
 export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
   
-  return class extends Base implements ScreenPill{
+  var Sp = class extends Base implements ScreenPill{
 
     [key: string]: Function | any
 
@@ -57,19 +56,6 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
       let element = this.initializeElement(elementName, locator)
       this.standardMethods(element)
-      this[key] = element
-    }
-
-    div(key:string, locator:BasicLocator = {}) {
-
-      let element:any = this.initializeElement('div', locator)
-      element = this.standardMethods(element)
-
-      element.get = async function() {
-        let el = await this.element()
-        return el.getText()
-      }
-
       this[key] = element
     }
 
@@ -230,7 +216,7 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
     selectList(key:string, locator:BasicLocator = {}) {
 
-      let element:any = this.initializeElement('div', locator)
+      let element:any = this.initializeElement('select', locator)
       element = this.standardMethods(element)
 
       element.optionElements = async function() {
@@ -357,6 +343,32 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
     }
 
   }
+
+  /* generic/basic accessors */
+
+  let accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p']
+
+  for(let i=0; i<accessors.length; i++) {
+    Sp.prototype[accessors[i]] = function(key:string, locator:BasicLocator = {}) {
+
+      let element = this.initializeElement(accessors[i], locator)
+      this.standardMethods(element)
+      
+      element.get = async function() {
+        let el = await this.element()
+        return el.getText()
+      }
+
+      element.click = async function() {
+        let el = await this.element()
+        return el.click()
+      }
+
+      this[key] = element
+    }
+  }
+
+  return Sp
 }
 
 
