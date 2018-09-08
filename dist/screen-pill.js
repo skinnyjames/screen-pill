@@ -270,7 +270,6 @@ module.exports = function ScreenPill(Base) {
                                     })];
                             case 2:
                                 selected = _a.sent();
-                                console.log('selected radios', selected);
                                 return [2, selected[0]];
                         }
                     });

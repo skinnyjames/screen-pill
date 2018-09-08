@@ -21,7 +21,7 @@ BeforeAll(function(cb) {
   g.start()
   setTimeout(function() {
     cb()
-  }, 5000)
+  }, 10000)
 })
 
 AfterAll(function() {
