@@ -75,9 +75,9 @@ module.exports = function ScreenPill(Base) {
             this.standardMethods(element);
             this[key] = element;
         };
-        class_1.prototype.label = function (key, locator) {
+        class_1.prototype.link = function (key, locator) {
             if (locator === void 0) { locator = {}; }
-            var element = this.initializeElement('label', locator);
+            var element = this.initializeElement('a', locator);
             element = this.standardMethods(element);
             element.get = function () {
                 return __awaiter(this, void 0, void 0, function () {
@@ -512,7 +512,7 @@ module.exports = function ScreenPill(Base) {
         };
         return class_1;
     }(Base));
-    var accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p'];
+    var accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p', 'td', 'label'];
     var _loop_1 = function (i) {
         Sp.prototype[accessors[i]] = function (key, locator) {
             if (locator === void 0) { locator = {}; }
