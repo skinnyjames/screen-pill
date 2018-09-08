@@ -13,6 +13,7 @@ function IndexPage(driver) {
   this.label('clickedLabel', { css: "[for=\'clicked\']"})
   this.checkbox('clickedCheckbox', { id: 'clicked' })
 
+  this.file('document', { id: 'document' })
 
   this.textarea('description', { id: 'description' })
   this.selectList('favoriteColor', { id: 'favorite-color'})

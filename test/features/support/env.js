@@ -1,5 +1,7 @@
+const resolve = require('path').resolve
 const { setDefaultTimeout, setWorldConstructor, AfterAll, BeforeAll } = require('cucumber')
 const webdriver = require('selenium-webdriver')
+
 
 const chromeCapabilities = webdriver.Capabilities.chrome()
 const chromeOptions = {
@@ -32,6 +34,7 @@ AfterAll(function() {
 
 function CustomWorld() {
   this.driver = driver
+  this.filePath = resolve('test/files/guy.jpeg')
 }
 
 let World = PillFactory(CustomWorld)

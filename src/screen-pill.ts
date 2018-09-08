@@ -296,6 +296,26 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       this[key] = element
     }
 
+    file(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('input[type=file]', locator)
+      element = this.standardMethods(element)
+
+      element.upload = async function(filePath:string) {
+        let el = await this.element()
+        return el.sendKeys(filePath)
+          .then((_:any) => {
+            return el.click()
+          })
+      }
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getAttribute('value')
+      }
+      this[key] = element
+    }
+
     private standardMethods(element:object) {
       return Object.assign(element, Element)
     }

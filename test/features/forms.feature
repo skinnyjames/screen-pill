@@ -32,3 +32,6 @@ Feature: Form interactions
     Given I visit home
     Then clicking a label will click a checkbox
 
+  Scenario: Files
+    Given I visit home
+    Then I can upload a file
