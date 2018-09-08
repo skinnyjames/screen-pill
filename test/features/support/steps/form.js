@@ -80,3 +80,11 @@ Then(/I can select a radio field/, async function() {
     expect(value).to.eql('taco')
   })
 })
+
+Then(/clicking a label will click a checkbox/, async function() {
+  return this.on(IndexPage, async (page) => {
+    await page.clickedLabel.click()
+    let checked = await page.clickedCheckbox.isChecked()
+    expect(checked).to.be.true
+  })
+})

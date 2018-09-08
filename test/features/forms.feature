@@ -27,3 +27,8 @@ Feature: Form interactions
   Scenario: Radio Buttons
     Given I visit home
     Then I can select a radio field
+
+  Scenario: Labels
+    Given I visit home
+    Then clicking a label will click a checkbox
+

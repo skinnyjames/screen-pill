@@ -76,6 +76,24 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
     /* 
      * Form Elements
      */
+    label(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('label', locator)
+      element = this.standardMethods(element)
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getText()
+      }
+
+      element.click = async function() {
+        let el = await this.element()
+        return el.click()
+      }
+
+      this[key] = element
+    }
+
     textField(key:string, locator:BasicLocator = {}) {
 
       let element:any = this.initializeElement('input[type=text]', locator)

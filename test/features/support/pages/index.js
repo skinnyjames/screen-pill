@@ -10,6 +10,10 @@ function IndexPage(driver) {
   this.checkbox('hungry', { id: 'hungry' })
   this.radio('food', { name: 'food' })
 
+  this.label('clickedLabel', { css: "[for=\'clicked\']"})
+  this.checkbox('clickedCheckbox', { id: 'clicked' })
+
+
   this.textarea('description', { id: 'description' })
   this.selectList('favoriteColor', { id: 'favorite-color'})
 }
