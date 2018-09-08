@@ -96,7 +96,7 @@ module.exports = function ScreenPill(Base) {
         };
         class_1.prototype.textField = function (key, locator) {
             if (locator === void 0) { locator = {}; }
-            var element = this.initializeElement('div', locator);
+            var element = this.initializeElement('input[type=text]', locator);
             element = this.standardMethods(element);
             element.get = function () {
                 return __awaiter(this, void 0, void 0, function () {
@@ -218,7 +218,7 @@ module.exports = function ScreenPill(Base) {
             element.selectBy = function (type, token) {
                 if (type === void 0) { type = 'index'; }
                 return __awaiter(this, void 0, void 0, function () {
-                    var options, _loop_1, i, state_1, _loop_2, i, state_2;
+                    var options, _loop_1, i, _loop_2, i;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4, this.optionElements()];
@@ -230,32 +230,28 @@ module.exports = function ScreenPill(Base) {
                                         break;
                                     case 'value':
                                         _loop_1 = function (i) {
-                                            return { value: options[i].getAttribute('value')
-                                                    .then(function (value) {
-                                                    if (value == token) {
-                                                        return options[i].click();
-                                                    }
-                                                }) };
+                                            options[i].getAttribute('value')
+                                                .then(function (value) {
+                                                if (value == token) {
+                                                    options[i].click();
+                                                }
+                                            });
                                         };
                                         for (i = 0; i < options.length; i++) {
-                                            state_1 = _loop_1(i);
-                                            if (typeof state_1 === "object")
-                                                return [2, state_1.value];
+                                            _loop_1(i);
                                         }
                                         break;
                                     default:
                                         _loop_2 = function (i) {
-                                            return { value: options[i].getText()
-                                                    .then(function (text) {
-                                                    if (text == token) {
-                                                        return options[i].click();
-                                                    }
-                                                }) };
+                                            options[i].getText()
+                                                .then(function (text) {
+                                                if (text == token) {
+                                                    options[i].click();
+                                                }
+                                            });
                                         };
                                         for (i = 0; i < options.length; i++) {
-                                            state_2 = _loop_2(i);
-                                            if (typeof state_2 === "object")
-                                                return [2, state_2.value];
+                                            _loop_2(i);
                                         }
                                 }
                                 return [2];

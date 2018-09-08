@@ -73,9 +73,12 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       this[key] = element
     }
 
+    /* 
+     * Form Elements
+     */
     textField(key:string, locator:BasicLocator = {}) {
 
-      let element:any = this.initializeElement('div', locator)
+      let element:any = this.initializeElement('input[type=text]', locator)
       element = this.standardMethods(element)
 
       element.get = async function() {
@@ -90,6 +93,25 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
       this[key] = element
     }
+
+    password(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('input[type=password]', locator)
+      element = this.standardMethods(element)
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getAttribute('value')
+      }
+
+      element.set = async function(value:any) {
+        let el = await this.element()
+        return el.sendKeys(value)
+      }
+
+      this[key] = element
+    }
+
 
     submit(key:string, locator:BasicLocator = {}) {
 
@@ -149,20 +171,20 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
             break
           case 'value': 
             for (let i=0;i<options.length;i++) {
-              return options[i].getAttribute('value')
+              options[i].getAttribute('value')
                 .then((value:string) => {
                   if (value == token) {
-                    return options[i].click()
+                    options[i].click()
                   }
                 })
             }
             break
           default: 
             for (let i=0;i<options.length;i++) {
-              return options[i].getText()
+              options[i].getText()
                 .then((text:string) => {
                   if (text == token) {
-                    return options[i].click()
+                    options[i].click()
                   }
                 })
             }
