@@ -159,7 +159,7 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
       element.select = async function(value:string) {
         let els = await this.allElements()
-        let matches = Bluebird.filter(els, (option:any) => {
+        let matches = await Bluebird.filter(els, (option:any) => {
           return option.getAttribute('value')
             .then((val:string) => {
               if (val == value) {
@@ -168,7 +168,7 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
             })
         })
 
-        Bluebird.each(matches, (match:any) => {
+        return Bluebird.each(matches, (match:any) => {
           match.click()
         })
       }
@@ -229,7 +229,7 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
       element.getSelected = async function() {
         let options = await this.optionElements()
-        let selected = Bluebird.filter(options, (option:any) => {
+        let selected = await Bluebird.filter(options, (option:any) => {
           return option.isSelected()
         })
         return Bluebird.map(selected, (el:any) => {

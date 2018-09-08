@@ -240,18 +240,19 @@ module.exports = function ScreenPill(Base) {
                             case 0: return [4, this.allElements()];
                             case 1:
                                 els = _a.sent();
-                                matches = Bluebird.filter(els, function (option) {
-                                    return option.getAttribute('value')
-                                        .then(function (val) {
-                                        if (val == value) {
-                                            return true;
-                                        }
-                                    });
-                                });
-                                Bluebird.each(matches, function (match) {
-                                    match.click();
-                                });
-                                return [2];
+                                return [4, Bluebird.filter(els, function (option) {
+                                        return option.getAttribute('value')
+                                            .then(function (val) {
+                                            if (val == value) {
+                                                return true;
+                                            }
+                                        });
+                                    })];
+                            case 2:
+                                matches = _a.sent();
+                                return [2, Bluebird.each(matches, function (match) {
+                                        match.click();
+                                    })];
                         }
                     });
                 });
@@ -269,6 +270,7 @@ module.exports = function ScreenPill(Base) {
                                     })];
                             case 2:
                                 selected = _a.sent();
+                                console.log('selected radios', selected);
                                 return [2, selected[0]];
                         }
                     });
@@ -354,9 +356,11 @@ module.exports = function ScreenPill(Base) {
                             case 0: return [4, this.optionElements()];
                             case 1:
                                 options = _a.sent();
-                                selected = Bluebird.filter(options, function (option) {
-                                    return option.isSelected();
-                                });
+                                return [4, Bluebird.filter(options, function (option) {
+                                        return option.isSelected();
+                                    })];
+                            case 2:
+                                selected = _a.sent();
                                 return [2, Bluebird.map(selected, function (el) {
                                         return el.getText();
                                     })];
