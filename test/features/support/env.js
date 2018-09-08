@@ -1,4 +1,4 @@
-const { setWorldConstructor, AfterAll, BeforeAll } = require('cucumber')
+const { setDefaultTimeout, setWorldConstructor, AfterAll, BeforeAll } = require('cucumber')
 const webdriver = require('selenium-webdriver')
 
 const chromeCapabilities = webdriver.Capabilities.chrome()
@@ -11,7 +11,7 @@ const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chr
 
 const PillFactory = require('./../../../dist/pill-factory')
 
-//const PageFactory = require('./../../../page-factory')
+setDefaultTimeout(10000)
 
 var glance = require('glance')
 var g
@@ -21,7 +21,7 @@ BeforeAll(function(cb) {
   g.start()
   setTimeout(function() {
     cb()
-  }, 10000)
+  }, 5000)
 })
 
 AfterAll(function() {
