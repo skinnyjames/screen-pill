@@ -88,18 +88,15 @@ currently supported elements are:
 * ~~h1, h2, h3, h4, h5, h6~~
 * ~~ul, ol, li~~
 * ~~p~~
-* ~~td~~
+* ~~table, tr, td~~
+* ~~image~~
 
 ** TODO **
 
-* image
-* table
-* tr
-
 All elements come with the following methods
 
-* `waitUntil(callback(element), timeout, message)`
-* `waitUntilPresent(timeout, message)`
+* `waitUntil(callback(element), {timeout: milliseconds, message: 'custom message'})`
+* `waitUntilPresent({timeout, milliseconds, message: 'custom message'})`
 * `allElements() // returns promise of selenium elements`
 * `element() //returns promise with selenium element`
 
@@ -111,10 +108,10 @@ ideas and contributions welcome!
 ### contributors
 
 * sean gregory
+* phil jordan
 
 ### special thanks
 
-* phil jordan
 * jesse keane
 
 
