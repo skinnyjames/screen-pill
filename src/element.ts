@@ -9,6 +9,10 @@ export = {
     return Promise.resolve(elements[index])
   },
 
+  allElements: async function() {
+    return this.driver.findElements(this.locator)
+  },
+
   waitUntil: async function(cb:Function, timeout=5000, message='wait condition not met') {
     let driver = this.driver
     let element = await this.element()

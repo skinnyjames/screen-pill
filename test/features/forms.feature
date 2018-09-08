@@ -23,3 +23,7 @@ Feature: Form interactions
   Scenario: Checkbox
     Given I visit home
     Then I can check the checkbox field
+
+  Scenario: Radio Buttons
+    Given I visit home
+    Then I can select a radio field

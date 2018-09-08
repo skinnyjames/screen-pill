@@ -152,9 +152,54 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       this[key] = element
     }
 
+    radio(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('input[type=radio]', locator)
+      element = this.standardMethods(element)
+
+      element.select = async function(value:string) {
+        let els = await this.allElements()
+        let matches = Bluebird.filter(els, (option:any) => {
+          return option.getAttribute('value')
+            .then((val:string) => {
+              if (val == value) {
+                return true
+              }
+            })
+        })
+
+        Bluebird.each(matches, (match:any) => {
+          match.click()
+        })
+      }
+
+      element.getSelected = async function() {
+        let els = await this.allElements()
+        let selected = await Bluebird.filter(els, (option:any) => {
+          return option.isSelected()
+        })
+        return selected[0]
+      }
+
+      this[key] = element
+    }
+
     submit(key:string, locator:BasicLocator = {}) {
 
-      let element:any = this.initializeElement('div', locator)
+      let element:any = this.initializeElement('input[type=submit]', locator)
+      element = this.standardMethods(element)
+
+      element.click = async function() {
+        let el = await this.element()
+        return el.click()
+      }
+
+      this[key] = element
+    }
+
+    button(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('button', locator)
       element = this.standardMethods(element)
 
       element.click = async function() {

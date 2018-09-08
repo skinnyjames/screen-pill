@@ -71,3 +71,12 @@ Then(/I can check the checkbox field/, async function() {
     expect(checked).to.be.true
   })
 })
+
+Then(/I can select a radio field/, async function() {
+  return this.on(IndexPage, async (page) => {
+    await page.food.select('taco')
+    let selected = await page.food.getSelected()
+    let value = await selected.getAttribute('value')
+    expect(value).to.eql('taco')
+  })
+})

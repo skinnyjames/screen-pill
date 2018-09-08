@@ -54,6 +54,13 @@ module.exports = {
             });
         });
     },
+    allElements: function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, this.driver.findElements(this.locator)];
+            });
+        });
+    },
     waitUntil: function (cb, timeout, message) {
         if (timeout === void 0) { timeout = 5000; }
         if (message === void 0) { message = 'wait condition not met'; }

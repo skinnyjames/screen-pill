@@ -228,9 +228,76 @@ module.exports = function ScreenPill(Base) {
             };
             this[key] = element;
         };
+        class_1.prototype.radio = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('input[type=radio]', locator);
+            element = this.standardMethods(element);
+            element.select = function (value) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var els, matches;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.allElements()];
+                            case 1:
+                                els = _a.sent();
+                                matches = Bluebird.filter(els, function (option) {
+                                    return option.getAttribute('value')
+                                        .then(function (val) {
+                                        if (val == value) {
+                                            return true;
+                                        }
+                                    });
+                                });
+                                Bluebird.each(matches, function (match) {
+                                    match.click();
+                                });
+                                return [2];
+                        }
+                    });
+                });
+            };
+            element.getSelected = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var els, selected;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.allElements()];
+                            case 1:
+                                els = _a.sent();
+                                return [4, Bluebird.filter(els, function (option) {
+                                        return option.isSelected();
+                                    })];
+                            case 2:
+                                selected = _a.sent();
+                                return [2, selected[0]];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
         class_1.prototype.submit = function (key, locator) {
             if (locator === void 0) { locator = {}; }
-            var element = this.initializeElement('div', locator);
+            var element = this.initializeElement('input[type=submit]', locator);
+            element = this.standardMethods(element);
+            element.click = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.click()];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
+        class_1.prototype.button = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('button', locator);
             element = this.standardMethods(element);
             element.click = function () {
                 return __awaiter(this, void 0, void 0, function () {

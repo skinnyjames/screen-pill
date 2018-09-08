@@ -8,6 +8,7 @@ function IndexPage(driver) {
   this.passwordField('password', { id: 'password' })
 
   this.checkbox('hungry', { id: 'hungry' })
+  this.radio('food', { name: 'food' })
 
   this.textarea('description', { id: 'description' })
   this.selectList('favoriteColor', { id: 'favorite-color'})
