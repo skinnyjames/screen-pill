@@ -35,3 +35,7 @@ Feature: Form interactions
   Scenario: Files
     Given I visit home
     Then I can upload a file
+  
+  Scenario: Generic Element
+    Given I visit home
+    Then I can get a generic nested element

@@ -77,9 +77,19 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       this[key] = element
     }
 
-    /* 
-     * Form Elements
-     */
+    image(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('img', locator)
+      element = this.standardMethods(element)
+
+      element.get = async function() {
+        let el = await this.element()
+        return el.getAttribute('src')
+      }
+
+      this[key] = element
+    }
+
     textField(key:string, locator:BasicLocator = {}) {
 
       let element:any = this.initializeElement('input[type=text]', locator)
@@ -346,7 +356,7 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
   /* generic/basic accessors */
 
-  let accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p', 'td', 'label']
+  let accessors = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'em', 'strong', 'ul', 'ol', 'li', 'p', 'label', 'table', 'tr', 'td']
 
   for(let i=0; i<accessors.length; i++) {
     Sp.prototype[accessors[i]] = function(key:string, locator:BasicLocator = {}) {

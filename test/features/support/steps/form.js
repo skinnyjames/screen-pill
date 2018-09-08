@@ -96,3 +96,11 @@ Then(/I can upload a file/, async function() {
     expect(value).to.match(/guy\.jpeg/)
   })
 })
+
+Then(/I can get a generic nested element/, async function() {
+  return this.on(IndexPage, async (page) => {
+    let el = await page.stats.element()
+    let text = await el.getText()
+    expect(text).to.eql('My Shoe')
+  })
+})
