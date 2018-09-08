@@ -94,7 +94,7 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       this[key] = element
     }
 
-    password(key:string, locator:BasicLocator = {}) {
+    passwordField(key:string, locator:BasicLocator = {}) {
 
       let element:any = this.initializeElement('input[type=password]', locator)
       element = this.standardMethods(element)
@@ -111,6 +111,8 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
 
       this[key] = element
     }
+
+
 
 
     submit(key:string, locator:BasicLocator = {}) {

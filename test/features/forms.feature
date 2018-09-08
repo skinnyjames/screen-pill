@@ -12,3 +12,6 @@ Feature: Form interactions
     Given I visit home
     Then I can fill in the text field
 
+  Scenario: Password Field
+    Given I visit home
+    Then I can fill in the password field

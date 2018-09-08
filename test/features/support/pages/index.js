@@ -5,6 +5,7 @@ function IndexPage(driver) {
   this.directUrl('localhost:8080')
 
   this.textField('username', { id: 'username' })
+  this.passwordField('password', { id: 'password' })
   this.selectList('favoriteColor', { id: 'favorite-color'})
 }
 

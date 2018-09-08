@@ -126,6 +126,38 @@ module.exports = function ScreenPill(Base) {
             };
             this[key] = element;
         };
+        class_1.prototype.passwordField = function (key, locator) {
+            if (locator === void 0) { locator = {}; }
+            var element = this.initializeElement('input[type=password]', locator);
+            element = this.standardMethods(element);
+            element.get = function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.getAttribute('value')];
+                        }
+                    });
+                });
+            };
+            element.set = function (value) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var el;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4, this.element()];
+                            case 1:
+                                el = _a.sent();
+                                return [2, el.sendKeys(value)];
+                        }
+                    });
+                });
+            };
+            this[key] = element;
+        };
         class_1.prototype.submit = function (key, locator) {
             if (locator === void 0) { locator = {}; }
             var element = this.initializeElement('div', locator);

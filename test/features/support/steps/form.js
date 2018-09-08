@@ -47,3 +47,11 @@ Then(/I can fill in the text field/, async function() {
     expect(username).to.eql('skinnyjames')
   })
 })
+
+Then(/I can fill in the password field/, async function() {
+  return this.on(IndexPage, async (page) => {
+    await page.password.set('password')
+    let password = await page.password.get()
+    expect(password).to.eql('password')
+  })
+})
