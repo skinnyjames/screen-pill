@@ -7,6 +7,8 @@ function IndexPage(driver) {
   this.textField('username', { id: 'username' })
   this.passwordField('password', { id: 'password' })
 
+  this.checkbox('hungry', { id: 'hungry' })
+
   this.textarea('description', { id: 'description' })
   this.selectList('favoriteColor', { id: 'favorite-color'})
 }

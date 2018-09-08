@@ -19,3 +19,7 @@ Feature: Form interactions
   Scenario: Textarea Field
     Given I visit home
     Then I can fill in the textarea field
+
+  Scenario: Checkbox
+    Given I visit home
+    Then I can check the checkbox field

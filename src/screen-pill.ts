@@ -134,6 +134,24 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
     }
 
 
+    checkbox(key:string, locator:BasicLocator = {}) {
+
+      let element:any = this.initializeElement('input[type=checkbox]', locator)
+      element = this.standardMethods(element)
+
+      element.check = async function() {
+        let el = await this.element()
+        return el.click()
+      }
+
+      element.isChecked = async function() {
+        let el = await this.element()
+        return el.isSelected()
+      }
+
+      this[key] = element
+    }
+
     submit(key:string, locator:BasicLocator = {}) {
 
       let element:any = this.initializeElement('div', locator)

@@ -63,3 +63,11 @@ Then(/I can fill in the textarea field/, async function() {
     expect(description).to.eql('this is a description')
   })
 })
+
+Then(/I can check the checkbox field/, async function() {
+  return this.on(IndexPage, async (page) => {
+    await page.hungry.check()
+    let checked = await page.hungry.isChecked()
+    expect(checked).to.be.true
+  })
+})
