@@ -81,7 +81,20 @@ currently supported elements are:
 
 **block and inline elements**
 
+* ~~link~~
 * ~~div~~
+* ~~span~~
+* ~~em, strong~~
+* ~~h1, h2, h3, h4, h5, h6~~
+* ~~ul, ol, li~~
+* ~~p~~
+* ~~td~~
+
+** TODO **
+
+* image
+* table
+* tr
 
 All elements come with the following methods
 
