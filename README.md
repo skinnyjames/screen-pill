@@ -14,15 +14,15 @@ declare a function to encapsulate a web page
 
 ```javascript
 
-const webdriver = require('selenium-webdriver')
-const driver = new webdriver.Builder().forBrowser('chrome').build()
+// google-search.js
+
 const ScreenPill = require('screen-pill')
 
 function GoogleSearch(driver) {
 
   this.setDriver(driver)
 
-  this.setUrl('http://www.google.com')
+  this.directUrl('http://www.google.com')
 
   this.textField('terms', {name: 'q'})
   this.submit('google')
@@ -38,12 +38,16 @@ function GoogleSearch(driver) {
   return this
 }
 
-ScreenPill(GoogleSearch)
+module.exports = ScreenPill(GoogleSearch)
 
 ```
 instantiate with driver and use methods
 
 ```javascript
+
+const webdriver = require('selenium-webdriver')
+const driver = new webdriver.Builder().forBrowser('chrome').build()
+const GoogleSearch = require('google-search')
 
 let searchPage = new GoogleSearch(driver)
 
