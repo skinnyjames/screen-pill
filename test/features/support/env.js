@@ -13,7 +13,7 @@ const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(chr
 
 const PillFactory = require('./../../../dist/pill-factory')
 
-setDefaultTimeout(10000)
+setDefaultTimeout(15000)
 
 var glance = require('glance')
 var g
@@ -23,7 +23,7 @@ BeforeAll(function(cb) {
   g.start()
   setTimeout(function() {
     cb()
-  }, 7000)
+  }, 10000)
 })
 
 AfterAll(function() {
