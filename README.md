@@ -60,6 +60,13 @@ async function search() {
 
 ## api
 
+page methods:
+
+* setDriver(driver)
+* directUrl(url)
+* visit(optionalUrl)
+* text() -> returns page text
+
 currently supported elements are:
 
 **generic element**
