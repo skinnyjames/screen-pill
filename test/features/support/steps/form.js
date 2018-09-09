@@ -93,7 +93,7 @@ Then(/I can upload a file/, async function() {
   return this.on(IndexPage, async (page) => {
     await page.document.upload(this.filePath) 
     let value = await page.document.get()
-    expect(value).to.match(/guy\.jpeg/)
+    expect(value).to.match(/guy\.txt/)
   })
 })
 

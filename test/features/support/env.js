@@ -34,7 +34,7 @@ AfterAll(function() {
 
 function CustomWorld() {
   this.driver = driver
-  this.filePath = resolve('test/files/guy.jpeg')
+  this.filePath = resolve('test/files/guy.txt')
 }
 
 let World = PillFactory(CustomWorld)
