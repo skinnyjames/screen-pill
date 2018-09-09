@@ -60,56 +60,15 @@ async function search() {
   return searchPage.query('cats')
 }
 
+search()
+
 ```
 
-## api
+## documentation
 
-page methods:
+see /test for examples using cucumber and chai
+see [wiki](https://github.com/skinnyjames/screen-pill/wiki/Screen-Pill) for api and usage
 
-* setDriver(driver)
-* directUrl(url)
-* visit(optionalUrl)
-* text() -> returns page text
-
-currently supported elements are:
-
-**generic element**
-
-* ~~element~~ 
-
-**form elements** 
-
-* ~~text field~~
-* ~~password field~~
-* ~~select~~
-* ~~radio~~
-* ~~label~~
-* ~~checkbox~~
-* ~~submit~~
-*  ~~textarea~~
-* ~~button~~
-* ~~file~~
-
-**block and inline elements**
-
-* ~~link~~
-* ~~div~~
-* ~~span~~
-* ~~em, strong~~
-* ~~h1, h2, h3, h4, h5, h6~~
-* ~~ul, ol, li~~
-* ~~p~~
-* ~~table, tr, td~~
-* ~~image~~
-
-** TODO **
-
-All elements come with the following methods
-
-* `waitUntil(callback(element), {timeout: milliseconds, message: 'custom message'})`
-* `waitUntilPresent({timeout, milliseconds, message: 'custom message'})`
-* `allElements() // returns promise of selenium elements`
-* `element() //returns promise with selenium element`
 
 ## under active development (contributions welcome)
 
