@@ -23,7 +23,7 @@ BeforeAll(function(cb) {
   g.start()
   setTimeout(function() {
     cb()
-  }, 10000)
+  }, 5000)
 })
 
 AfterAll(function() {
