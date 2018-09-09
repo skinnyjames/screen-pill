@@ -66,7 +66,8 @@ search()
 
 ## documentation
 
-see /test for examples using cucumber and chai
+see `/test` for examples using cucumber and chai
+
 see [wiki](https://github.com/skinnyjames/screen-pill/wiki/Screen-Pill) for api and usage
 
 
