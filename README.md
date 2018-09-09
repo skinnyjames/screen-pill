@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill)
 
 <p align="center">
  <a href="https://github.com/skinnyjames/screen-pill">
@@ -6,7 +5,8 @@
   </a>
 </p>
 
-# screen-pill
+# screen-pill [![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill)
+
 
 page object pattern implemented in javascript
 
