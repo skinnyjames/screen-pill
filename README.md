@@ -1,5 +1,11 @@
 [![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill)
 
+<p align="center">
+ <a href="https://github.com/skinnyjames/screen-pill">
+   <img align="center" src="https://i.imgur.com/cMv6ase.png" width="300">
+  </a>
+</p>
+
 # screen-pill
 
 page object pattern implemented in javascript
