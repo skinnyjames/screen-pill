@@ -79,9 +79,6 @@ see [wiki](https://github.com/skinnyjames/screen-pill/wiki/Screen-Pill) for api 
 
 ## under active development (contributions welcome)
 
-This library will only continue to grow
-ideas and contributions welcome!
-
 ### contributors
 
 * sean gregory
