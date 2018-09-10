@@ -8,7 +8,7 @@
 # screen-pill [![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill)
 
 
-page object pattern implemented in javascript
+library for creating page objects in javascript
 
 inpsired by cheezy's ruby [implementation](https://github.com/cheezy/page-object)
 
@@ -78,9 +78,6 @@ see [wiki](https://github.com/skinnyjames/screen-pill/wiki/Screen-Pill) for api 
 
 
 ## under active development (contributions welcome)
-
-This library will only continue to grow
-ideas and contributions welcome!
 
 ### contributors
 
