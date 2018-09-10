@@ -5,7 +5,7 @@
   </a>
 </p>
 
-# screen-pill [![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg) ![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg) ![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)
+# screen-pill [![Build Status](https://travis-ci.org/skinnyjames/screen-pill.svg?branch=master)](https://travis-ci.org/skinnyjames/screen-pill) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 
 
