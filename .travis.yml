@@ -16,5 +16,8 @@ before_script:
   - ln --symbolic /usr/lib/chromium-browser/chromedriver "${HOME}/bin/chromedriver"
 
 script: 
-  - xvfb-run npm test
+  - xvfb-run ./node_modules/.bin/nyc npm test
+
+after_script: 
+  - ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls
 
