@@ -31,3 +31,25 @@ Then(/elements can wait until present/, async function() {
   })
 })
 
+Then(/I can wait with custom options/, async function() {
+  return this.on(AsyncPage, async (page) => {
+    return page.hello.waitUntilPresent({timeout: 100, message: 'hurry up!'})
+    .catch(e => {
+      expect(e.message).to.match(/hurry up!/)
+    })
+  })
+
+  return this.visit(IndexPage, async (page) => {
+    setTimeout(() => {
+      page.username.set('slow')
+    }, 2000)
+
+    return page.username.waitUntil(async function(element) {
+      let username = await element.get()
+      return username == 'wait'
+    }, {timeout: 100, message: "c'mon already!"})
+    .catch(e => {
+      expect(e.message).to.match(/c'mon already!/)
+    })
+  })
+})

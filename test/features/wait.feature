@@ -8,3 +8,7 @@ Feature: Waiting
   Scenario: Wait until present
     Given I visit an async page
     Then elements can wait until present
+
+  Scenario: Custom Message & Timeout on waiting
+    Given I visit an async page
+    Then I can wait with custom options
