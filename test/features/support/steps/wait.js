@@ -3,6 +3,11 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const expect = chai.expect
 const IndexPage = require('./../pages/index')
+const AsyncPage = require('./../pages/async')
+
+Given(/I visit an async page/, async function() {
+  return this.visit(AsyncPage)
+})
 
 Then(/I can wait until a custom condition/, async function() {
   return this.on(IndexPage, async (page) => {
@@ -17,3 +22,13 @@ Then(/I can wait until a custom condition/, async function() {
 
   })
 })
+
+Then(/elements can wait until present/, async function() {
+  return this.on(AsyncPage, async (page) => {
+    await page.hello.waitUntilPresent()
+    let element = await page.hello.element()
+    let text = await element.getText()
+    expect(text).to.eql('screen-pill')
+  })
+})
+

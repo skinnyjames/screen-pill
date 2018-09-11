@@ -1,6 +1,10 @@
 Feature: Waiting
   Screen Pills can wait
 
-  Scenario: Wait until present
+  Scenario: Wait until custom
     Given I visit home
     Then I can wait until a custom condition
+
+  Scenario: Wait until present
+    Given I visit an async page
+    Then elements can wait until present

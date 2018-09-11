@@ -1,0 +1,23 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="container">
+    </div>
+    <script>
+      window.onload = function() {
+        setTimeout(function() {
+          insertIntoContainer()
+        }, 2000)
+      }
+
+      function insertIntoContainer() {
+        let el = document.getElementById('container')
+        let div = document.createElement('span')
+        let text = document.createTextNode('screen-pill')
+        div.appendChild(text)
+        el.appendChild(div)
+      }
+    </script>
+  </body>
+</html>
