@@ -490,10 +490,7 @@ module.exports = function ScreenPill(Base) {
                             case 0: return [4, this.element()];
                             case 1:
                                 el = _a.sent();
-                                return [2, el.sendKeys(filePath)
-                                        .then(function (_) {
-                                        return el.click();
-                                    })];
+                                return [2, el.sendKeys(filePath)];
                         }
                     });
                 });

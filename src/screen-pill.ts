@@ -305,9 +305,6 @@ export = function ScreenPill<TBase extends Constructor>(Base: TBase) {
       element.upload = async function(filePath:string) {
         let el = await this.element()
         return el.sendKeys(filePath)
-          .then((_:any) => {
-            return el.click()
-          })
       }
 
       element.get = async function() {
