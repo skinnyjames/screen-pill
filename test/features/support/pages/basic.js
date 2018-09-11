@@ -24,6 +24,9 @@ function BasicPage(driver) {
   this.tr('trElement')
   this.td('tdElement')
 
+  this.image('img')
+  this.link('a')
+
 }
 
 module.exports = ScreenPill(BasicPage)

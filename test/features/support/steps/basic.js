@@ -62,5 +62,12 @@ Then(/I can use basic accessors/, async function() {
 
     let td = await page.tdElement.get()
     expect(td).to.eql('table')
+
+    let img = await page.img.get()
+    expect(img).to.match(/google/)
+
+    await page.a.click()
+    let link = await page.a.get() 
+    expect(link).to.eq('link')
   })
 })
