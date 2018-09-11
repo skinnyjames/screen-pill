@@ -27,10 +27,10 @@ export = {
       opts.message = 'wait condition timed out after ' + opts.timeout + ' millseconds'
     }
 
+    let self = this
     let driver = this.driver
-    let element = await this.element()
     let condition = function() {
-      return cb(element)
+      return cb(self)
     }
     return driver.wait(condition, opts.timeout, opts.message)
   },

@@ -64,25 +64,20 @@ module.exports = {
     waitUntil: function (cb, opts) {
         if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            var driver, element, condition;
+            var self, driver, condition;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!opts.timeout) {
-                            opts.timeout = 5000;
-                        }
-                        if (!opts.message) {
-                            opts.message = 'wait condition timed out after ' + opts.timeout + ' millseconds';
-                        }
-                        driver = this.driver;
-                        return [4, this.element()];
-                    case 1:
-                        element = _a.sent();
-                        condition = function () {
-                            return cb(element);
-                        };
-                        return [2, driver.wait(condition, opts.timeout, opts.message)];
+                if (!opts.timeout) {
+                    opts.timeout = 5000;
                 }
+                if (!opts.message) {
+                    opts.message = 'wait condition timed out after ' + opts.timeout + ' millseconds';
+                }
+                self = this;
+                driver = this.driver;
+                condition = function () {
+                    return cb(self);
+                };
+                return [2, driver.wait(condition, opts.timeout, opts.message)];
             });
         });
     },
