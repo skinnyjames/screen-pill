@@ -19,7 +19,6 @@ Then(/I can wait until a custom condition/, async function() {
       let username = await element.get()
       return username == 'wait'
     })
-
   })
 })
 

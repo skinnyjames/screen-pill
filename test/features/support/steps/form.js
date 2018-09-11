@@ -97,6 +97,13 @@ Then(/I can upload a file/, async function() {
   })
 })
 
+Then(/I can click a submit button/, async function() {
+  return this.on(IndexPage, async (page) => {
+    await page.clicker.click()
+    await page.hello.waitUntilPresent()
+  })
+})
+
 Then(/I can get a generic nested element/, async function() {
   return this.on(IndexPage, async (page) => {
     let el = await page.stats.element()

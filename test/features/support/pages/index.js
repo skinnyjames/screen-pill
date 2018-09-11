@@ -5,6 +5,9 @@ function IndexPage(driver) {
   this.directUrl('localhost:8080')
 
   this.element('stats', 'table#stats tr:nth-child(2) td', { index: 1 })
+  this.submit('clicker')
+
+  this.element('hello', 'div#container span')
 
   this.textField('username', { id: 'username' })
   this.passwordField('password', { id: 'password' })

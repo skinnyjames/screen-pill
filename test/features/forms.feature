@@ -35,6 +35,10 @@ Feature: Form interactions
   Scenario: Files
     Given I visit home
     Then I can upload a file
+
+  Scenario: Submit Button
+    Given I visit home
+    Then I can click a submit button
   
   Scenario: Generic Element
     Given I visit home
