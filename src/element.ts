@@ -18,6 +18,27 @@ export = {
     return this.driver.findElements(this.locator)
   },
 
+  exists: async function() {
+
+    let locator = this.locator
+    let index = this.index
+    let driver = this.driver
+
+    return driver.findElements(locator).then(success, error)
+
+    function success(elements: any) {
+      if(elements[index]) {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    function error(err: any) {
+      return false
+    }
+  },
+
   waitUntil: async function(cb:Function, opts:Options = {}) {
 
     if (!opts.timeout) {

@@ -61,6 +61,28 @@ module.exports = {
             });
         });
     },
+    exists: function () {
+        return __awaiter(this, void 0, void 0, function () {
+            function success(elements) {
+                if (elements[index]) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            function error(err) {
+                return false;
+            }
+            var locator, index, driver;
+            return __generator(this, function (_a) {
+                locator = this.locator;
+                index = this.index;
+                driver = this.driver;
+                return [2, driver.findElements(locator).then(success, error)];
+            });
+        });
+    },
     waitUntil: function (cb, opts) {
         if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
